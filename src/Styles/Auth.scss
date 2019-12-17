@@ -1,0 +1,13 @@
+
+
+.form {
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: center;
+    margin: 'auto';
+    width: 'fit-content';
+}
+.formControl {
+    margin-top: 20px;
+    min-width: 50%;
+}

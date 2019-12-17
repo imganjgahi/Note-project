@@ -4,6 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { IApplicationState } from '../../store/state';
+import { AuthActions } from '../../actions/Auth/action';
+import { IAuthState } from '../../actions/Auth/model';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,10 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IProps {
-
-}
-export const Navbar = () => {
+type IProps = IAuthState & typeof AuthActions;
+const Navbar = (props: IProps) => {
     const classes = useStyles({});
     return (
         <AppBar position="static">
@@ -27,8 +29,15 @@ export const Navbar = () => {
     <Typography variant="h6" className={classes.title}>
       Take a Note ...
     </Typography>
-    <Button color="inherit">Login</Button>
+    <Button color="inherit" onClick={() => props.toggleLoginModal(true)}>Login</Button>
   </Toolbar>
 </AppBar>
     )
 }
+
+
+
+export default connect(
+    (state: IApplicationState) => state.auth,
+    AuthActions,
+)(Navbar);

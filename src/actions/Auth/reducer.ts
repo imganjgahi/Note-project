@@ -53,6 +53,13 @@ export const AuthReducer: Reducer<IAuthState> = (
                 },
             } as IAuthState;
         }
+        
+        case AuthActionTypes.LogOut: {
+            return {
+                ...state,
+                isAuth: false,
+            } as IAuthState;
+        }
     }
     return state;
 };

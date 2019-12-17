@@ -16,6 +16,12 @@ const isAuth = () => {
         axios.defaults.headers.common['Authorization'] = `jwt ${token}` 
     }
 }
+
+export const logOut = () => {
+    window.localStorage.removeItem("note-project");
+    store.getState().auth.isAuth = false;
+    axios.defaults.headers.common['Authorization'] = `jwt` 
+}
 isAuth();
 ReactDOM.render(
     <Provider store={store}> 

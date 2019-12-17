@@ -74,9 +74,6 @@ class Login extends React.Component<IProps, IState> {
                             fullWidth />
                     )}
                 </form>
-                <div>
-                    <button onClick={()=> this.props.testAuth()}>Test Auth</button>
-                </div>
             </CusmtomModal>
         );
     }

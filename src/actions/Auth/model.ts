@@ -28,8 +28,12 @@ interface ILoginSuccess extends Action<string> {
 interface ILoginFail extends Action<string> {
     type: AuthActionTypes.LoginFail;
 }
+interface ILogOut extends Action<string> {
+    type: AuthActionTypes.LogOut;
+}
 
 export type ActionModel = ILoginModal
     | ILogin
     | ILoginSuccess
     | ILoginFail
+    | ILogOut

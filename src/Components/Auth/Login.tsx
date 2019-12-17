@@ -21,8 +21,8 @@ class Login extends React.Component<IProps, IState> {
     onOk = () => {
         const values = this.props.onFormSubmit()
         if(!values.err){
-            this.props.goLogin({email: values.data.email, password: values.data.password})
-            this.props.toggleLoginModal(false)
+            this.props.loginRequest({email: values.data.email, password: values.data.password})
+            // this.props.toggleLoginModal(false)
             this.props.resetForm()
         }
         console.log("values, ", values)
@@ -76,6 +76,9 @@ class Login extends React.Component<IProps, IState> {
                             fullWidth />
                     )}
                 </form>
+                <div>
+                    <button onClick={()=> this.props.testAuth()}>Test Auth</button>
+                </div>
             </CusmtomModal>
         );
     }

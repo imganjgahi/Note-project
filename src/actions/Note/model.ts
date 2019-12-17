@@ -2,9 +2,9 @@ import { Action } from "redux";
 import {NoteActionTypes} from './actionType'
 
 
-export type CreateNoteModel = {
-    email: string;
-    password: string;
+export type CreateNoteType = {
+    title: string;
+    content: string;
 }
 
 export interface INoteState {

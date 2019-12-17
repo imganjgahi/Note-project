@@ -2,8 +2,7 @@ import { AppAction } from "../../store/state";
 import { AuthActionTypes } from "./actionType";
 import { ActionModel, LoginType } from "./model";
 import { AuthApi } from "./api";
-import axios from '../../AxiosConfig'
-import { urlGeneral, urlVersion } from "../../Utils/General/GConst";
+import axios from '../../AxiosConfig';
 
 export const AuthActions = {
 
@@ -30,8 +29,5 @@ export const AuthActions = {
         dispatch({type: AuthActionTypes.LogOut});
         axios.defaults.headers.common['Authorization'] = "" 
         window.localStorage.removeItem("note-project");
-    },
-    testAuth: (): AppAction<ActionModel> => async (dispatch, getState) => {
-        const res = await axios.get(urlGeneral + urlVersion + "/notes")
     }
 };

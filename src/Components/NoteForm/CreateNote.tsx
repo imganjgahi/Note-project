@@ -4,7 +4,7 @@ import { FormCreator, IFormProps } from '../../Utils/FormCreator';
 import { connect } from "react-redux";
 import { IApplicationState } from "../../store/state";
 import { NoteActions } from "../../actions/Note/action";
-import { INoteState } from '../../actions/Note/model';
+import { INoteState, CreateNoteType } from '../../actions/Note/model';
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,6 +22,7 @@ type IProps = INoteState  &  typeof NoteActions & IFormProps & {
 const CreateNote = (props: IProps) => {
 
 
+
     const [showBox, setShowBox] = React.useState(false)
 
     React.useEffect(() => {
@@ -33,19 +34,26 @@ const CreateNote = (props: IProps) => {
             }, 250);
         }
     },[props.isActive])
+    
 
-
-    console.log(props.isActive)
     const classes = useStyles({});
     let boxClassName = "createNoteBox"
     if (props.isActive) {
         boxClassName = "createNoteBox active";
     }
-    const { getFormItem } = props
+
+    const { getFormItem } = props;
+
     const submitHandler = (e: any) => {
         e.preventDefault();
       const values =  props.onFormSubmit()
-      console.log("values: ", values)
+      if(!values.err){
+        const data: CreateNoteType = {
+            title: values.data.title,
+            content: values.data.content
+        }
+        props.createNoteRequest(data)
+      }
     }
     if(!showBox){
         return null

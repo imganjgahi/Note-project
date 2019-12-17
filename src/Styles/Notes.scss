@@ -1,0 +1,52 @@
+.addNote {
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	z-index: 5;
+}
+
+.notesContainer {
+	padding: 15px;
+}
+
+.listHeader {
+	background-color: #3f51b5;
+	color: white;
+	height: 35px;
+	padding-top: 10px;
+	padding-left: 15px;
+	box-shadow: 0 3px 3px #ccc;
+}
+
+.noteList {
+	padding: 0 30px;
+}
+.noteCard {
+	border: 1px solid #ccc;
+	margin: 10px auto;
+	border-radius: 5px;
+	width: 755px;
+	max-width: 100%;
+}
+
+.noteTile {
+	background-color: rgb(59, 59, 59);
+	padding: 15px;
+	margin: 0;
+	color: white;
+}
+.noteContent {
+	padding: 0 25px;
+	margin-bottom: 20px;
+	color: #444;
+	font-size: 13px;
+}
+.noteFooter {
+	height: 50px;
+	text-align: right;
+}
+.noteDelete {
+    width: 120px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+}

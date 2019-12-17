@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "../../store/state";
 import { INoteState, NotesType } from "../../actions/Note/model";
 import { NoteActions } from "../../actions/Note/action";
+import NoteCard from "../NoteCard/NoteCard";
 
 type IProps =  INoteState  &  typeof NoteActions;
 const NoteContainer = (props: IProps) => {
@@ -11,10 +12,7 @@ const NoteContainer = (props: IProps) => {
         <div className="noteList">
             {props.notesList.data.map( (note: NotesType) => {
                 return(
-                    <div key={note._id}>
-                        <p> {note.title} </p>
-                        <p> {note.content} </p>
-                    </div>
+                    <NoteCard {...props} key={note._id} note={note} />
                 )
             })}
         </div>

@@ -20,7 +20,7 @@ export const MainContainer = (props: IProps) => {
     }
     React.useEffect(() => {
         if (props.auth.isAuth) {
-            props.fetchNoteList();
+            // props.fetchNoteList();
         }
     }, [])
     console.log(props.note.notesList)
@@ -37,6 +37,7 @@ export const MainContainer = (props: IProps) => {
                 </Fab>
             </div>
             <div className="notesContainer">
+                <h3 className="listHeader">Your Notes</h3>
                 <NoteContainer {...props} />
             </div>
         </React.Fragment>

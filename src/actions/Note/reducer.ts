@@ -7,7 +7,14 @@ const unloadedState: INoteState = {
     //fetch
     notesList: {
         loading: false,
-        data: []
+        data: [
+            {_id: "1", title: "note 1", content: "Content"},
+            {_id: "2", title: "note 2", content: "Content"},
+            {_id: "3", title: "note 3", content: "Content"},
+            {_id: "4", title: "note 4", content: "Content"},
+            {_id: "5", title: "note 5", content: "Content"},
+            {_id: "6", title: "note 6", content: "Content"},
+        ]
     },
 
     //create

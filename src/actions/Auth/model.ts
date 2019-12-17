@@ -1,6 +1,12 @@
 import { Action } from "redux";
 import {AuthActionTypes} from './actionType'
 
+
+export type LoginType = {
+    email: string;
+    password: string;
+}
+
 export interface IAuthState {
     login: {
         loading: boolean;

@@ -1,7 +1,7 @@
 module.exports = {
     mode: "production",
     devtool: "source-map",
-
+    performance: { hints: false },
     resolve: {
         extensions: [".ts", ".tsx", ".js"]
     },

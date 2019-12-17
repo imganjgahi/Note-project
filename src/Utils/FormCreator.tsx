@@ -50,6 +50,14 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                     }
                     err[name] = { msg, isValid }
                 }
+                if(rule.emaliValidate && isValid){
+                    const emailRegexValidation = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                    isValid = emailRegexValidation.test(value)
+                    if (!isValid) {
+                        msg = rule.msg
+                    }
+                    err[name] = { msg, isValid }
+                }
                 if (rule.max && isValid) {
                     isValid = value.length <= rule.max
                     if (!isValid) {

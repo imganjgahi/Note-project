@@ -20,8 +20,11 @@ class Login extends React.Component<IProps, IState> {
     }
     onOk = () => {
         const values = this.props.onFormSubmit()
-        this.props.toggleLoginModal(false)
-        this.props.resetForm()
+        if(!values.err){
+            this.props.goLogin({email: values.data.email, password: values.data.password})
+            this.props.toggleLoginModal(false)
+            this.props.resetForm()
+        }
         console.log("values, ", values)
     }
     onCancelHandler = () => {
@@ -42,8 +45,12 @@ class Login extends React.Component<IProps, IState> {
                         label: " Email Address",
                         rules: [{
                             required: true,
-                            msg: "must fill"
-                        }]
+                            msg: "filed must fill"
+                        }, 
+                    {
+                        emaliValidate: true,
+                        msg: "Email is not valid"
+                    }]
                     },
 
                         <TextField

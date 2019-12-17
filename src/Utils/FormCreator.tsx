@@ -110,9 +110,11 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 rules: {}
             })
         }
-        initialRules = (name: string, newRules: any) => {
+        initialValues = (name: string, newRules: any) => {
             const {rules, data} = this.state
-            rules[name] = newRules
+            if(newRules){
+                rules[name] = newRules
+            }
             data[name] = ""
             this.setState({ rules, data})
         }
@@ -135,7 +137,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 id={comp.props.id ? comp.props.id : itemProps.name}
                 name={itemProps.name}
                 itemElement={El}
-                initialRules={this.initialRules}
+                initialValues={this.initialValues}
                 rules={itemProps.rules}
                 err={this.state.err && this.state.err[itemProps.name] ? this.state.err[itemProps.name].msg : null} />
         }
@@ -151,9 +153,8 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
 
 const FromItemWrapper = (props: any) => {
     React.useEffect(() => {
-        if (props.rules) {
-            props.initialRules(props.name, props.rules)
-        }
+            props.initialValues(props.name, props.rules)
+        
     }, [])
     return (
         <div className="itemWrapper">

@@ -14,13 +14,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-type IProps = INoteState  &  typeof NoteActions & IFormProps & {
+type IProps = INoteState & typeof NoteActions & IFormProps & {
     isActive: boolean
 }
 
 
 const CreateNote = (props: IProps) => {
-    
+
 
     const classes = useStyles({});
     let boxClassName = "createNoteBox"
@@ -32,16 +32,17 @@ const CreateNote = (props: IProps) => {
 
     const submitHandler = (e: any) => {
         e.preventDefault();
-      const values =  props.onFormSubmit()
-      if(!values.err){
-        const data: CreateNoteType = {
-            title: values.data.title,
-            content: values.data.content
+        const values = props.onFormSubmit()
+        if (!values.err) {
+            const data: CreateNoteType = {
+                title: values.data.title,
+                content: values.data.content
+            }
+            props.createNoteRequest({ ...data });
+            props.resetForm();
         }
-        props.createNoteRequest(data)
-      }
     }
-    
+
     return (
         <div className={boxClassName}>
             <Paper className={classes.root}>
@@ -67,12 +68,15 @@ const CreateNote = (props: IProps) => {
                             type="text"
                             fullWidth />
                     )}
-                <div className="createNoteFooter">
-                    <Button color="secondary"
-                        onClick={() => props.toggleCreateNoteModal(false)}
-                    >Discard</Button>
-                    <Button type="submit" variant="contained" color="primary">Confrim</Button>
-                </div>
+                    <div className="createNoteFooter">
+                        <Button color="secondary"
+                            onClick={() => {
+                                props.resetForm();
+                                props.toggleCreateNoteModal(false)
+                            }}
+                        >Discard</Button>
+                        <Button type="submit" variant="contained" color="primary">Confrim</Button>
+                    </div>
                 </form>
 
             </Paper>

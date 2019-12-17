@@ -28,11 +28,11 @@ export default function CusmtomModal(props: IProps) {
           {props.children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onCancel} color="primary">
+          <Button onClick={props.onCancel}  color="secondary">
             Cancel
           </Button>
-          <Button onClick={props.onOk} color="primary">
-            Subscribe
+          <Button onClick={props.onOk} variant="contained" color="primary">
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>

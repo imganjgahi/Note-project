@@ -4,68 +4,70 @@ import { AuthActions } from '../../actions/Auth/action';
 import { IApplicationState } from '../../store/state';
 import { connect } from 'react-redux';
 import CusmtomModal from '../../Utils/Modal/Modal';
-import { TextField, FormControl, makeStyles, createStyles, Theme } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { FormCreator, IFormProps } from "../../Utils/FormCreator";
 
-// const useStyles = makeStyles((theme: Theme) =>
-//     createStyles({
-//         form: {
-//             display: 'flex',
-//             flexDirection: 'column',
-//             margin: 'auto',
-//             width: 'fit-content',
-//         },
-//         formControl: {
-//             marginTop: theme.spacing(2),
-//             minWidth: 120,
-//         },
-//         formControlLabel: {
-//             marginTop: theme.spacing(1),
-//         },
-//     }),
-// );
+type IProps = IAuthState & typeof AuthActions & IFormProps;
 
-type IProps = IAuthState & typeof AuthActions;
-
-type IState = {
-    visible: boolean;
-};
+type IState = { };
 
 class Login extends React.Component<IProps, IState> {
 
     // classes = useStyles({});
     constructor(props: IProps) {
         super(props);
-        this.state = {
-            visible: false
-        }
+        this.state = { }
+    }
+    onOk = () => {
+        const values = this.props.onFormSubmit()
+        this.props.toggleLoginModal(false)
+        this.props.resetForm()
+        console.log("values, ", values)
     }
     onCancelHandler = () => {
+        this.props.resetForm()
         this.props.toggleLoginModal(false)
     }
     render() {
+        const { getFormItem } = this.props
         return (
             <CusmtomModal
                 title="Login"
                 open={this.props.login.open}
                 onCancel={this.onCancelHandler}
-                onOk={this.onCancelHandler}>
+                onOk={this.onOk}>
                 <form className="form">
+                    {getFormItem({
+                        name: "email",
+                        label: " Email Address",
+                        rules: [{
+                            required: true,
+                            msg: "must fill"
+                        }]
+                    },
+
                         <TextField
-                        name="email"
                             autoFocus
                             margin="dense"
                             id="email"
-                            label="Email Address"
                             type="email"
                             fullWidth />
+                    )}
+                    {getFormItem({
+                        name: "password",
+                        label: "Password",
+                        rules: [{
+                            required: true,
+                            msg: "must fill"
+                        }]
+                    },
                         <TextField
-                            name="password"
-                            autoFocus
                             margin="dense"
                             id="email"
                             label="Password"
-                            type="email"
+                            type="password"
                             fullWidth />
+                    )}
                 </form>
             </CusmtomModal>
         );
@@ -76,4 +78,4 @@ class Login extends React.Component<IProps, IState> {
 export default connect(
     (state: IApplicationState) => state.auth,
     AuthActions,
-)(Login);
+)(FormCreator(Login));

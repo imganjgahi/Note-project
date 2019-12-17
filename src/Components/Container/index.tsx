@@ -4,22 +4,30 @@ import EditIcon from '@material-ui/icons/Edit';
 import CreateNote from "../NoteForm/CreateNote";
 import { connect } from "react-redux";
 import { IApplicationState } from "../../store/state";
-import { AuthActions } from "../../actions/Auth/action";
 import { IAuthState } from "../../actions/Auth/model";
+import { INoteState } from "../../actions/Note/model";
+import { NoteActions } from "../../actions/Note/action";
 
-type IProps = IAuthState & typeof AuthActions;
+type IProps = {
+    auth: IAuthState,
+    note: INoteState
+} &  typeof NoteActions;
 
 export const NoteContainer = (props: IProps) => {
 
-    if(!props.isAuth){
+    if(!props.auth.isAuth){
         return null
     }
     return (
         <React.Fragment>
-            <CreateNote />
+            <CreateNote isActive={props.note.createNote.open} />
             <div className="addNote">
-                <Fab color="secondary" aria-label="edit">
-                    <EditIcon />
+                <Fab 
+                color="secondary" 
+                aria-label="edit"
+                onClick={() => props.toggleCreateNoteModal(true)}
+                >
+                <EditIcon />
                 </Fab>
             </div>
         </React.Fragment>
@@ -27,6 +35,11 @@ export const NoteContainer = (props: IProps) => {
 };
 
 export default connect(
-    (state: IApplicationState) => state.auth,
-    AuthActions,
+    (state: IApplicationState) => {
+        return {
+            auth: state.auth,
+            note: state.note
+        }
+    },
+    NoteActions,
 )(NoteContainer);

@@ -23,7 +23,7 @@ const NoteCard = ({ note, ...props }: IProps) => {
                 <IconButton aria-describedby={id} onClick={handleClick}>
                     <MoreVert />
                 </IconButton>
-                <Popper id={id} open={open} anchorEl={anchorEl} placement={'bottom-end'} transition>
+                <Popper id={id} open={open} anchorEl={anchorEl} placement={'bottom'} transition>
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={350}>
                             <div className="noteDelete">

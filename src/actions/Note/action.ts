@@ -29,10 +29,26 @@ export const NoteActions = {
         try {
             const res = await NoteApi.CreateNote(data)
             if (res.data) {
-                dispatch({ type: NoteActionTypes.CreateNoteSuccess })
+                dispatch({ type: NoteActionTypes.CreateNoteSuccess, newNote: res.data })
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.CreateNoteFail })
+            console.log(error.message)
+        }
+
+    },
+
+    //delete a note
+    deleteNoteRequest: (noteId: string): AppAction<ActionModel> => async (dispatch, getState) => {
+        dispatch({ type: NoteActionTypes.DeleteNote })
+        try {
+            const res = await NoteApi.DeleteNote(noteId)
+            if (res.data) {
+                dispatch({ type: NoteActionTypes.DeleteNoteSuccess, noteId })
+                console.log(res.data)
+            }
+        } catch (error) {
+            dispatch({ type: NoteActionTypes.DeleteNoteFail })
             console.log(error.message)
         }
 

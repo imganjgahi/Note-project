@@ -20,6 +20,9 @@ export interface INoteState {
     createNote: {
         loading: boolean;
         open: boolean;
+    },
+    deleteNote: {
+        loading: boolean;
     }
 }
 //fetch
@@ -44,9 +47,23 @@ interface ICreateNote extends Action<string> {
 }
 interface ICreateNoteSuccess extends Action<string> {
     type: NoteActionTypes.CreateNoteSuccess;
+    newNote: NotesType;
 }
 interface ICreateNoteFail extends Action<string> {
     type: NoteActionTypes.CreateNoteFail;
+}
+
+//Delete note
+
+interface IDeleteNote extends Action<string> {
+    type: NoteActionTypes.DeleteNote;
+}
+interface IDeleteNoteSuccess extends Action<string> {
+    type: NoteActionTypes.DeleteNoteSuccess;
+    noteId: string;
+}
+interface IDeleteNoteFail extends Action<string> {
+    type: NoteActionTypes.DeleteNoteFail;
 }
 
 
@@ -57,4 +74,7 @@ export type ActionModel = ICreateNoteModal
     | ICreateNote
     | ICreateNoteSuccess
     | ICreateNoteFail
+    | IDeleteNote
+    | IDeleteNoteSuccess
+    | IDeleteNoteFail
     

@@ -7,19 +7,17 @@ const unloadedState: INoteState = {
     //fetch
     notesList: {
         loading: false,
-        data: [
-            {_id: "1", title: "note 1", content: "Content"},
-            {_id: "2", title: "note 2", content: "Content"},
-            {_id: "3", title: "note 3", content: "Content"},
-            {_id: "4", title: "note 4", content: "Content"},
-            {_id: "5", title: "note 5", content: "Content"},
-            {_id: "6", title: "note 6", content: "Content"},
-        ]
+        data: []
     },
 
     //create
     createNote: {
         open: false,
+        loading: false
+    },
+    
+    //delete
+    deleteNote: {
         loading: false
     }
 };
@@ -80,8 +78,14 @@ export const NoteReducer: Reducer<INoteState> = (
             } as INoteState;
         }
         case NoteActionTypes.CreateNoteSuccess: {
+            const newNotesList = [...state.notesList.data]
+            newNotesList.push(action.newNote)
             return {
                 ...state,
+                notesList: {
+                    ...state.notesList,
+                    data: newNotesList
+                },
                 isAuth: true,
                 createNote: {
                     ...state.createNote,
@@ -95,6 +99,40 @@ export const NoteReducer: Reducer<INoteState> = (
                 ...state,
                 createNote: {
                     ...state.createNote,
+                    loading: false,
+                },
+            } as INoteState;
+        }
+
+        //delete note
+        case NoteActionTypes.DeleteNote: {
+            return {
+                ...state,
+                deleteNote: {
+                    ...state.deleteNote,
+                    loading: true,
+                },
+            } as INoteState;
+        }
+        case NoteActionTypes.DeleteNoteSuccess: {
+            const newNotesList = state.notesList.data.filter(note => note._id !== action.noteId)
+            return {
+                ...state,
+                notesList: {
+                    ...state.notesList,
+                    data: newNotesList
+                },
+                deleteNote: {
+                    ...state.deleteNote,
+                    loading: false,
+                },
+            } as INoteState;
+        }
+        case NoteActionTypes.DeleteNoteFail: {
+            return {
+                ...state,
+                deleteNote: {
+                    ...state.deleteNote,
                     loading: false,
                 },
             } as INoteState;

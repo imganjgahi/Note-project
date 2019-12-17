@@ -20,7 +20,7 @@ export const MainContainer = (props: IProps) => {
     }
     React.useEffect(() => {
         if (props.auth.isAuth) {
-            // props.fetchNoteList();
+            props.fetchNoteList();
         }
     }, [])
     console.log(props.note.notesList)

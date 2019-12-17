@@ -12,5 +12,9 @@ export const NoteApi = {
 
     CreateNote : async (data: CreateNoteType) => {
         return axios.post(NoteUrl, data)
+    },
+
+    DeleteNote : async (id: string) => {
+        return axios.delete(NoteUrl + id)
     }
 }

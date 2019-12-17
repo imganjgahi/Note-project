@@ -29,7 +29,8 @@ const Navbar = (props: IProps) => {
     <Typography variant="h6" className={classes.title}>
       Take a Note ...
     </Typography>
-    <Button color="inherit" onClick={() => props.toggleLoginModal(true)}>Login</Button>
+    {!props.isAuth && <Button color="inherit" onClick={() => props.toggleLoginModal(true)}>Login</Button>}
+    {props.isAuth && <Button color="inherit" onClick={() => props.logOutRequest()}>Logout</Button>}
   </Toolbar>
 </AppBar>
     )

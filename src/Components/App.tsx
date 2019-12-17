@@ -1,4 +1,5 @@
 import * as React from "react";
+import Login from "./Auth/Login";
 
 
 export const App = () => {
@@ -6,7 +7,9 @@ export const App = () => {
 
     return (
         <React.Fragment>
+            <Login />
             <p>App works</p>
+
         </React.Fragment>
     )
 };

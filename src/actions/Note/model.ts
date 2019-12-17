@@ -6,14 +6,35 @@ export type CreateNoteType = {
     title: string;
     content: string;
 }
-
+export type NotesType = {
+    _id: string,
+    title: string;
+    content: string;
+}
 export interface INoteState {
+
+    notesList : {
+        loading: boolean;
+        data: NotesType[]
+    }
     createNote: {
         loading: boolean;
         open: boolean;
     }
 }
+//fetch
+interface IFetchNotes extends Action<string> {
+    type: NoteActionTypes.FetchNotes;
+}
+interface IFetchNotesSuccess extends Action<string> {
+    type: NoteActionTypes.FetchNotesSuccess;
+    data: NotesType[]
+}
+interface IFetchNotesFail extends Action<string> {
+    type: NoteActionTypes.FetchNotesFail;
+}
 
+//create
 interface ICreateNoteModal extends Action<string> {
     type: NoteActionTypes.CreateNoteModal;
     open: boolean;
@@ -30,6 +51,9 @@ interface ICreateNoteFail extends Action<string> {
 
 
 export type ActionModel = ICreateNoteModal
+    | IFetchNotes
+    | IFetchNotesSuccess
+    | IFetchNotesFail
     | ICreateNote
     | ICreateNoteSuccess
     | ICreateNoteFail

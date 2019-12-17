@@ -7,28 +7,37 @@ import { IApplicationState } from "../../store/state";
 import { IAuthState } from "../../actions/Auth/model";
 import { INoteState } from "../../actions/Note/model";
 import { NoteActions } from "../../actions/Note/action";
+import NoteContainer from "./NoteContainer";
 
 type IProps = {
     auth: IAuthState,
     note: INoteState
-} &  typeof NoteActions;
+} & typeof NoteActions;
 
-export const NoteContainer = (props: IProps) => {
-
-    if(!props.auth.isAuth){
+export const MainContainer = (props: IProps) => {
+    if (!props.auth.isAuth) {
         return null
     }
+    React.useEffect(() => {
+        if (props.auth.isAuth) {
+            props.fetchNoteList();
+        }
+    }, [])
+    console.log(props.note.notesList)
     return (
         <React.Fragment>
             <CreateNote isActive={props.note.createNote.open} />
             <div className="addNote">
-                <Fab 
-                color="secondary" 
-                aria-label="edit"
-                onClick={() => props.toggleCreateNoteModal(true)}
+                <Fab
+                    color="secondary"
+                    aria-label="edit"
+                    onClick={() => props.toggleCreateNoteModal(true)}
                 >
-                <EditIcon />
+                    <EditIcon />
                 </Fab>
+            </div>
+            <div className="notesContainer">
+                <NoteContainer {...props} />
             </div>
         </React.Fragment>
     )
@@ -42,4 +51,4 @@ export default connect(
         }
     },
     NoteActions,
-)(NoteContainer);
+)(MainContainer);

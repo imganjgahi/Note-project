@@ -3,6 +3,14 @@ import { NoteActionTypes } from "./actionType";
 import { INoteState, ActionModel } from "./model";
 
 const unloadedState: INoteState = {
+    
+    //fetch
+    notesList: {
+        loading: false,
+        data: []
+    },
+
+    //create
     createNote: {
         open: false,
         loading: false
@@ -14,6 +22,38 @@ export const NoteReducer: Reducer<INoteState> = (
     action: ActionModel,
 ) => {
     switch (action.type) {
+
+        //fetch case
+        case NoteActionTypes.FetchNotes: {
+            return {
+                ...state,
+                notesList: {
+                    ...state.notesList,
+                    loading: true
+                },
+            } as INoteState;
+        }
+        case NoteActionTypes.FetchNotesSuccess: {
+            return {
+                ...state,
+                notesList: {
+                    ...state.notesList,
+                    loading: false,
+                    data: action.data
+                },
+            } as INoteState;
+        }
+        case NoteActionTypes.FetchNotesFail: {
+            return {
+                ...state,
+                notesList: {
+                    ...state.notesList,
+                    loading: false,
+                },
+            } as INoteState;
+        }
+
+        //create case
         case NoteActionTypes.CreateNoteModal: {
             return {
                 ...state,

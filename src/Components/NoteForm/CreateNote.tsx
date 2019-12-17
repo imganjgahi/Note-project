@@ -20,20 +20,6 @@ type IProps = INoteState  &  typeof NoteActions & IFormProps & {
 
 
 const CreateNote = (props: IProps) => {
-
-
-
-    const [showBox, setShowBox] = React.useState(false)
-
-    React.useEffect(() => {
-        if(props.isActive){
-            setShowBox(true)
-        } else {
-            setTimeout(() => {
-                setShowBox(false)
-            }, 250);
-        }
-    },[props.isActive])
     
 
     const classes = useStyles({});
@@ -55,9 +41,7 @@ const CreateNote = (props: IProps) => {
         props.createNoteRequest(data)
       }
     }
-    if(!showBox){
-        return null
-    }
+    
     return (
         <div className={boxClassName}>
             <Paper className={classes.root}>

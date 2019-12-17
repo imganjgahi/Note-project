@@ -22,10 +22,8 @@ class Login extends React.Component<IProps, IState> {
         const values = this.props.onFormSubmit()
         if(!values.err){
             this.props.loginRequest({email: values.data.email, password: values.data.password})
-            // this.props.toggleLoginModal(false)
             this.props.resetForm()
         }
-        console.log("values, ", values)
     }
     onCancelHandler = () => {
         this.props.resetForm()

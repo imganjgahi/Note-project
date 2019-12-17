@@ -16,10 +16,12 @@ export const AuthActions = {
         try {
             const res = await AuthApi.login(data)
             if(res.data){
-                console.log("token: ", res.data.token , " = ", res.data)
+                dispatch({type: AuthActionTypes.LoginSuccess})
+                window.localStorage.setItem("note-project", res.data.token);
                 axios.defaults.headers.common['Authorization'] = `jwt ${res.data.token}` 
             }
         } catch (error) {
+            dispatch({type: AuthActionTypes.LoginFail})
             console.log(error.message)
         }
         

@@ -8,10 +8,10 @@ export type LoginType = {
 }
 
 export interface IAuthState {
+    isAuth: boolean;
     login: {
         loading: boolean;
         open: boolean;
-        data: any;
     }
 }
 

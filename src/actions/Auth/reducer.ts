@@ -3,10 +3,10 @@ import { AuthActionTypes } from "./actionType";
 import { IAuthState, ActionModel } from "./model";
 
 const unloadedState: IAuthState = {
+    isAuth: false,
     login: {
         open: false,
-        loading: false,
-        data: null
+        loading: false
     }
 };
 
@@ -21,6 +21,35 @@ export const AuthReducer: Reducer<IAuthState> = (
                 login: {
                     ...state.login,
                     open: action.open
+                },
+            } as IAuthState;
+        }
+        case AuthActionTypes.Login: {
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    loading: true,
+                },
+            } as IAuthState;
+        }
+        case AuthActionTypes.LoginSuccess: {
+            return {
+                ...state,
+                isAuth: true,
+                login: {
+                    ...state.login,
+                    loading: false,
+                    open: false
+                },
+            } as IAuthState;
+        }
+        case AuthActionTypes.LoginFail: {
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    loading: false,
                 },
             } as IAuthState;
         }

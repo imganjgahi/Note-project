@@ -36,14 +36,16 @@ export const NoteReducer: Reducer<INoteState> = (
 
         //fetch case
         case NoteActionTypes.PaginateNote: {
-            const {page, total} = action
-            const updatedList = JSON.parse(JSON.stringify(state.notesList.data)).splice((page * total), total)
-            console.log("updatedList ", updatedList, "DAta: ",  state.notesList.data)
+            let {page, total} = action
+            if((page * total) >= state.notesList.data.length){
+                page--
+            }
+            const updatedList = [...state.notesList.data].splice((page * total), total)
             return {
                 ...state,
                 notesPaginated: {
                     ...state.notesPaginated,
-                    page: action.page,
+                    page: page,
                     total: action.total,
                     list: updatedList
                 },

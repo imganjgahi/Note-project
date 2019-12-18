@@ -5,6 +5,7 @@ import { NoteApi } from "./api";
 
 export const NoteActions = {
     setListPaginate: (page:number, total:number): AppAction<ActionModel> => (dispatch, getState) => {
+        console.log("setListPaginate")
         dispatch({ type: NoteActionTypes.PaginateNote, page, total });
 
     },
@@ -33,7 +34,9 @@ export const NoteActions = {
         try {
             const res = await NoteApi.CreateNote(data)
             if (res.data) {
-                dispatch({ type: NoteActionTypes.CreateNoteSuccess, newNote: res.data })
+                dispatch({ type: NoteActionTypes.CreateNoteSuccess, newNote: res.data });
+                const {page, total} = getState().note.notesPaginated;
+                NoteActions.setListPaginate(page, total)(dispatch, getState);
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.CreateNoteFail })
@@ -48,7 +51,9 @@ export const NoteActions = {
         try {
             const res = await NoteApi.DeleteNote(noteId)
             if (res.data) {
-                dispatch({ type: NoteActionTypes.DeleteNoteSuccess, noteId })
+                dispatch({ type: NoteActionTypes.DeleteNoteSuccess, noteId });
+                const {page, total} = getState().note.notesPaginated;
+                NoteActions.setListPaginate(page, total)(dispatch, getState);
                 console.log(res.data)
             }
         } catch (error) {

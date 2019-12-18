@@ -15,7 +15,6 @@ type IProps = {
 } & typeof NoteActions;
 
 export const MainContainer = (props: IProps) => {
-    const [listPage, setListPageNumber] = React.useState<number>(0)
     if (!props.auth.isAuth) {
         return null
     }
@@ -25,11 +24,11 @@ export const MainContainer = (props: IProps) => {
         }
     }, [])
     let page:number = 0;
-    const paginateBtn = () => props.note.notesList.data.map((_, i) => {
+
+    const renderPaginateBtn = () => props.note.notesList.data.map((_, i) => {
         if(i % props.note.notesPaginated.total === 0) {
             const pageNumber = page++
-            return <Button variant={pageNumber === listPage ? "contained" : "outlined"} key={i} onClick={() => {
-                setListPageNumber(pageNumber)
+            return <Button variant={pageNumber === props.note.notesPaginated.page ? "contained" : "outlined"} key={i} onClick={() => {
                 props.setListPaginate(pageNumber, 2)
                 console.log(pageNumber)
             }}> {pageNumber} </Button>
@@ -54,17 +53,7 @@ export const MainContainer = (props: IProps) => {
             </div>
             <div className="paginate">
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    {paginateBtn()}
-                    {/* {props.note.notesList.data.map((_, i) => {
-                        if(i > 0 && i % props.note.notesPaginated.total === 0) {
-                            const pageNumber = page++
-                            return <Button onClick={() => {
-                                console.log(Math.floor(i / props.note.notesPaginated.total))
-                                props.setListPaginate(pageNumber, 2)
-                            }}> {page} </Button>
-                        }
-                        return null 
-                    })} */}
+                    {renderPaginateBtn()}
                 </ButtonGroup>
             </div>
         </React.Fragment>

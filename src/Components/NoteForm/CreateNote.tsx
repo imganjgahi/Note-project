@@ -47,7 +47,7 @@ const CreateNote = (props: IProps) => {
         <div className={boxClassName}>
             <Paper className={classes.root}>
                 <form className="createNoteForm" onSubmit={submitHandler}>
-                    <h3>Add a new note</h3>
+                    <h3 className="noteFormTitle">Add a new note</h3>
                     {getFormItem({
                         name: "title",
                         label: "Note Title"

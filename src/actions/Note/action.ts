@@ -21,7 +21,7 @@ export const NoteActions = {
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.FetchNotesFail })
-            console.log(error.message)
+            alert(error.message)
         }
     },
 
@@ -44,7 +44,8 @@ export const NoteActions = {
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.CreateNoteFail })
-            console.log(error.message)
+            
+            alert(error.message)
         }
 
     },
@@ -63,7 +64,7 @@ export const NoteActions = {
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.DeleteNoteFail })
-            console.log(error.message)
+            alert(error.message)
         }
 
     }

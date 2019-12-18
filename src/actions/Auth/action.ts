@@ -26,7 +26,7 @@ export const AuthActions = {
         } catch (error) {
             //loagin perosses faild
             dispatch({type: AuthActionTypes.LoginFail})
-            console.log(error.message)
+            alert(error.message)
         }
         
     },

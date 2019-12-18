@@ -32,6 +32,7 @@ const CreateNote = (props: IProps) => {
 
     const submitHandler = (e: any) => {
         e.preventDefault();
+        //onFormSubmit => it is a function that return inputs value and validation error if has one 
         const values = props.onFormSubmit()
         if (!values.err) {
             const data: CreateNoteType = {
@@ -51,7 +52,13 @@ const CreateNote = (props: IProps) => {
                     <h3 className="noteFormTitle">Add a new note</h3>
                     {getFormItem({
                         name: "title",
-                        label: "Note Title"
+                        label: "Note Title",
+                        rules: [
+                            {
+                                required: true,
+                                msg: "title filed is required"
+                            }
+                        ]
                     },
                         <TextField
                             autoFocus
@@ -61,7 +68,13 @@ const CreateNote = (props: IProps) => {
                     )}
                     {getFormItem({
                         name: "content",
-                        label: "Content"
+                        label: "Content",
+                        rules: [
+                            {
+                                required: true,
+                                msg: "content filed is required"
+                            }
+                        ]
                     },
                         <TextField
                             autoFocus
@@ -69,6 +82,7 @@ const CreateNote = (props: IProps) => {
                             type="text"
                             fullWidth />
                     )}
+
                     <div className="createNoteFooter">
                         <Button color="secondary"
                         disabled={props.createNote.loading}

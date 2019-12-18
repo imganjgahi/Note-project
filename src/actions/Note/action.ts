@@ -4,8 +4,9 @@ import { ActionModel, CreateNoteType } from "./model";
 import { NoteApi } from "./api";
 
 export const NoteActions = {
-    setListPaginate: (page:number, total:number): AppAction<ActionModel> => (dispatch, getState) => {
-        console.log("setListPaginate")
+    //manage notes pagination
+    // it's set on total 2 notes in every page right now
+    setListPaginate: (page: number, total: number): AppAction<ActionModel> => (dispatch, getState) => {
         dispatch({ type: NoteActionTypes.PaginateNote, page, total });
 
     },
@@ -16,11 +17,11 @@ export const NoteActions = {
         try {
             const res = await NoteApi.GetNotes();
             if (res.data) {
-                console.log(res.data)
                 dispatch({ type: NoteActionTypes.FetchNotesSuccess, data: res.data });
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.FetchNotesFail })
+            console.log(error.message)
         }
     },
 
@@ -29,13 +30,16 @@ export const NoteActions = {
         dispatch({ type: NoteActionTypes.CreateNoteModal, open });
     },
 
+    //send reques to server
     createNoteRequest: (data: CreateNoteType): AppAction<ActionModel> => async (dispatch, getState) => {
         dispatch({ type: NoteActionTypes.CreateNote })
         try {
             const res = await NoteApi.CreateNote(data)
             if (res.data) {
                 dispatch({ type: NoteActionTypes.CreateNoteSuccess, newNote: res.data });
-                const {page, total} = getState().note.notesPaginated;
+
+                //manage notes pagination
+                const { page, total } = getState().note.notesPaginated;
                 NoteActions.setListPaginate(page, total)(dispatch, getState);
             }
         } catch (error) {
@@ -52,9 +56,10 @@ export const NoteActions = {
             const res = await NoteApi.DeleteNote(noteId)
             if (res.data) {
                 dispatch({ type: NoteActionTypes.DeleteNoteSuccess, noteId });
-                const {page, total} = getState().note.notesPaginated;
+
+                //manage notes pagination
+                const { page, total } = getState().note.notesPaginated;
                 NoteActions.setListPaginate(page, total)(dispatch, getState);
-                console.log(res.data)
             }
         } catch (error) {
             dispatch({ type: NoteActionTypes.DeleteNoteFail })

@@ -10,13 +10,15 @@ type IProps =  INoteState  &  typeof NoteActions;
 const NoteContainer = (props: IProps) => {
 
     React.useEffect(() => {
+        //initial pagination
         props.setListPaginate(0, 2)
-    },[])
-    console.log(props.notesPaginated)
+    },[]);
+
     return (
         <div className="noteList">
             
         {props.notesList.loading && <LinearProgress variant="query" />}
+        
             {props.notesPaginated.list.map( (note: NotesType) => {
                 return(
                     <NoteCard {...props} key={note._id} note={note} />

@@ -35,6 +35,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 rules: {}
             }
         }
+
         itemValidation = (name: string, value: string, rules: IRules) => {
             if(!rules){
                 return true
@@ -50,6 +51,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                     }
                     err[name] = { msg, isValid }
                 }
+
                 if(rule.emaliValidate && isValid){
                     const emailRegexValidation = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
                     isValid = emailRegexValidation.test(value)
@@ -58,6 +60,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                     }
                     err[name] = { msg, isValid }
                 }
+
                 if (rule.max && isValid) {
                     isValid = value.length <= rule.max
                     if (!isValid) {
@@ -69,6 +72,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             this.setState({ err })
             return isValid
         }
+
         onFormSubmit = () => {
             const { data, rules } = this.state
             let err: any = null;
@@ -80,6 +84,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 }
     
             }
+
             if (isValid) {
                 err = null
             } else {
@@ -87,6 +92,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             }
             return {data, err}
         }
+        
         onChangeHandler(name: string = "", e: any, rules: IRules) {
             const data: any = this.state.data ? { ...this.state.data } : {}
             let value = e;
@@ -100,9 +106,11 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             }
 
         }
+
         getFormValues = () => {
             return this.state
         }
+
         resetForm = () => {
             this.setState({
                 data: {},
@@ -110,6 +118,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 rules: {}
             })
         }
+
         initialValues = (name: string, newRules: any) => {
             const {rules, data} = this.state
             if(newRules){
@@ -118,6 +127,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             data[name] = ""
             this.setState({ rules, data})
         }
+
         formItem = (itemProps: IFormItem, comp: any) => {
             const newValue: string = this.state.data[itemProps.name] ? this.state.data[itemProps.name] : ""
             const initialElement = {
@@ -131,6 +141,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 },
                 value: newValue
             }
+
             const El = React.cloneElement(comp, initialElement, null);
             return <FromItemWrapper
                 label={itemProps.label}
@@ -141,6 +152,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 rules={itemProps.rules}
                 err={this.state.err && this.state.err[itemProps.name] ? this.state.err[itemProps.name].msg : null} />
         }
+
         render() {
             const { ...props } = this.props;
             return <Component {...props as P}

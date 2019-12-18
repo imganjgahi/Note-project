@@ -18,6 +18,8 @@ class Login extends React.Component<IProps, IState> {
         super(props);
         this.state = { }
     }
+
+    //submit login form 
     onOk = () => {
         const values = this.props.onFormSubmit()
         if(!values.err){
@@ -38,7 +40,12 @@ class Login extends React.Component<IProps, IState> {
                 onCancel={this.onCancelHandler}
                 loading = {this.props.login.loading}
                 onOk={this.onOk}>
+
                 <form className="form">
+                    {/* 
+                        getFormItem it's a wrapper.
+                         it's manage Input Element's props and send childs value to the form controller
+                    */}
                     {getFormItem({
                         name: "email",
                         label: " Email Address",
@@ -50,6 +57,7 @@ class Login extends React.Component<IProps, IState> {
                         emaliValidate: true,
                         msg: "Email is not valid"
                     }]
+
                     },
 
                         <TextField

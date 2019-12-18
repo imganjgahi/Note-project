@@ -15,6 +15,7 @@ export const AuthReducer: Reducer<IAuthState> = (
     action: ActionModel,
 ) => {
     switch (action.type) {
+        //#################### Login cases
         case AuthActionTypes.LoginModal: {
             return {
                 ...state,
@@ -53,7 +54,7 @@ export const AuthReducer: Reducer<IAuthState> = (
                 },
             } as IAuthState;
         }
-        
+        //#################### Logout cases
         case AuthActionTypes.LogOut: {
             return {
                 ...state,

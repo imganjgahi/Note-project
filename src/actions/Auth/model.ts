@@ -15,6 +15,7 @@ export interface IAuthState {
     }
 }
 
+//login actionType
 interface ILoginModal extends Action<string> {
     type: AuthActionTypes.LoginModal;
     open: boolean;
@@ -28,6 +29,8 @@ interface ILoginSuccess extends Action<string> {
 interface ILoginFail extends Action<string> {
     type: AuthActionTypes.LoginFail;
 }
+
+//logout actionType
 interface ILogOut extends Action<string> {
     type: AuthActionTypes.LogOut;
 }

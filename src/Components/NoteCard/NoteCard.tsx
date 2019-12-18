@@ -48,6 +48,7 @@ const NoteCard = ({ note, ...props }: IProps) => {
             Delete
         </Button>
         </div>}
+        
         {props.deleteNote.loading && <LinearProgress variant="query" color="secondary" />}
       </div>
       <ConfirmMessage

@@ -30,12 +30,13 @@ export interface INoteState {
         loading: boolean;
     }
 }
-//fetch
+//pagination
 interface IPaginateNote extends Action<string> {
     type: NoteActionTypes.PaginateNote;
     page: number,
     total: number
 }
+
 //fetch
 interface IFetchNotes extends Action<string> {
     type: NoteActionTypes.FetchNotes;

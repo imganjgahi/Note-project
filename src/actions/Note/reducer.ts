@@ -34,9 +34,10 @@ export const NoteReducer: Reducer<INoteState> = (
 ) => {
     switch (action.type) {
 
-        //fetch case
+        //PaginateNote cases
         case NoteActionTypes.PaginateNote: {
             let {page, total} = action
+            //back to previos page if notes length was less than total request
             if((page * total) >= state.notesList.data.length){
                 if(page > 0)
                 {
@@ -54,7 +55,9 @@ export const NoteReducer: Reducer<INoteState> = (
                 },
             } as INoteState;
         }
-        //fetch case
+
+
+        //fetch cases
         case NoteActionTypes.FetchNotes: {
             return {
                 ...state,
@@ -64,6 +67,7 @@ export const NoteReducer: Reducer<INoteState> = (
                 },
             } as INoteState;
         }
+
         case NoteActionTypes.FetchNotesSuccess: {
             const {page, total} = state.notesPaginated
             const updatedList = action.data.slice((page * total), total)
@@ -90,7 +94,7 @@ export const NoteReducer: Reducer<INoteState> = (
             } as INoteState;
         }
 
-        //create case
+        //create cases
         case NoteActionTypes.CreateNoteModal: {
             return {
                 ...state,
@@ -136,7 +140,7 @@ export const NoteReducer: Reducer<INoteState> = (
             } as INoteState;
         }
 
-        //delete note
+        //delete notes
         case NoteActionTypes.DeleteNote: {
             return {
                 ...state,

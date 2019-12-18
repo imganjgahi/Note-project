@@ -27,13 +27,17 @@ export const MainContainer = (props: IProps) => {
     let page:number = 0;
 
     const renderPaginateBtn = () => {
+        // notesList.data => the list we fetch from server
+        //notesPaginated.list => the list we show it in the page
         if(props.note.notesList.data.length > props.note.notesPaginated.total){
             return props.note.notesList.data.map((_, i) => {
                 if(i % props.note.notesPaginated.total === 0) {
                     const pageNumber = page++
-                    return <Button variant={pageNumber === props.note.notesPaginated.page ? "contained" : "outlined"} key={i} onClick={() => {
+                    return <Button 
+                    variant={pageNumber === props.note.notesPaginated.page ? "contained" : "outlined"} 
+                    key={i} 
+                    onClick={() => {
                         props.setListPaginate(pageNumber, 2)
-                        console.log(pageNumber)
                     }}> {pageNumber} </Button>
                 }
                 return null 
@@ -41,6 +45,7 @@ export const MainContainer = (props: IProps) => {
         }
         return null
     }
+
     return (
         <React.Fragment>
             <CreateNote isActive={props.note.createNote.open} />
@@ -52,6 +57,7 @@ export const MainContainer = (props: IProps) => {
                     <EditIcon />
                 </Fab>
             </div>}
+
             <div className="notesContainer">
                 <NoteContainer {...props} />
             </div>

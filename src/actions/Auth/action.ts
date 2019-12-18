@@ -15,9 +15,9 @@ export const AuthActions = {
         try {
             const res = await AuthApi.login(data)
             if(res.data){
-                dispatch({type: AuthActionTypes.LoginSuccess})
                 window.localStorage.setItem("note-project", res.data.token);
                 axios.defaults.headers.common['Authorization'] = `jwt ${res.data.token}` 
+                    dispatch({type: AuthActionTypes.LoginSuccess})
             }
         } catch (error) {
             dispatch({type: AuthActionTypes.LoginFail})
@@ -26,8 +26,8 @@ export const AuthActions = {
         
     },
     logOutRequest: (): AppAction<ActionModel> => (dispatch, getState) => {
-        dispatch({type: AuthActionTypes.LogOut});
         axios.defaults.headers.common['Authorization'] = "" 
         window.localStorage.removeItem("note-project");
+        dispatch({type: AuthActionTypes.LogOut});
     }
 };

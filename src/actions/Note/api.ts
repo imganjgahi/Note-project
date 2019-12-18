@@ -1,5 +1,5 @@
  import { urlGeneral, urlVersion } from "../../Utils/General/GConst"
-import axios from 'axios'
+import axios from '../../AxiosConfig'
 import { CreateNoteType } from "./model"
 const NoteUrl = urlGeneral + urlVersion + "/notes/"
 

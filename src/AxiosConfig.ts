@@ -7,6 +7,20 @@ let AxiosInstance = Axios.create({
 
 });
 
+AxiosInstance.interceptors.request.use(
+  config => {
+      const token = window.localStorage.getItem('note-project');
+      console.log("axios")
+      if (token) {
+        console.log("token")
+        config.headers['Authorization'] = 'jwt ' + token;
+      }
+      return config;
+  },
+  error => {
+      return error
+  });
+
 AxiosInstance.interceptors.response.use(
     (response) => response,
   (error) => {

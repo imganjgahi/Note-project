@@ -8,6 +8,7 @@ import { IAuthState } from "../../actions/Auth/model";
 import { INoteState } from "../../actions/Note/model";
 import { NoteActions } from "../../actions/Note/action";
 import NoteContainer from "./NoteContainer";
+import GuestView from "../GuestView/GuestView";
 
 type IProps = {
     auth: IAuthState,
@@ -16,7 +17,7 @@ type IProps = {
 
 export const MainContainer = (props: IProps) => {
     if (!props.auth.isAuth) {
-        return null
+        return <GuestView registerHandler={() => console.log()} />
     }
     React.useEffect(() => {
         if (props.auth.isAuth) {
@@ -25,16 +26,21 @@ export const MainContainer = (props: IProps) => {
     }, [])
     let page:number = 0;
 
-    const renderPaginateBtn = () => props.note.notesList.data.map((_, i) => {
-        if(i % props.note.notesPaginated.total === 0) {
-            const pageNumber = page++
-            return <Button variant={pageNumber === props.note.notesPaginated.page ? "contained" : "outlined"} key={i} onClick={() => {
-                props.setListPaginate(pageNumber, 2)
-                console.log(pageNumber)
-            }}> {pageNumber} </Button>
+    const renderPaginateBtn = () => {
+        if(props.note.notesList.data.length > props.note.notesPaginated.total){
+            return props.note.notesList.data.map((_, i) => {
+                if(i % props.note.notesPaginated.total === 0) {
+                    const pageNumber = page++
+                    return <Button variant={pageNumber === props.note.notesPaginated.page ? "contained" : "outlined"} key={i} onClick={() => {
+                        props.setListPaginate(pageNumber, 2)
+                        console.log(pageNumber)
+                    }}> {pageNumber} </Button>
+                }
+                return null 
+            })
         }
-        return null 
-    })
+        return null
+    }
     return (
         <React.Fragment>
             <CreateNote isActive={props.note.createNote.open} />
@@ -48,7 +54,6 @@ export const MainContainer = (props: IProps) => {
                 </Fab>
             </div>
             <div className="notesContainer">
-                <h3 className="listHeader">Your Notes</h3>
                 <NoteContainer {...props} />
             </div>
             <div className="paginate">

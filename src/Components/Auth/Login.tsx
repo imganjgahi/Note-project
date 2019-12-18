@@ -36,6 +36,7 @@ class Login extends React.Component<IProps, IState> {
                 title="Login"
                 open={this.props.login.open}
                 onCancel={this.onCancelHandler}
+                loading = {this.props.login.loading}
                 onOk={this.onOk}>
                 <form className="form">
                     {getFormItem({
@@ -74,6 +75,7 @@ class Login extends React.Component<IProps, IState> {
                             fullWidth />
                     )}
                 </form>
+                
             </CusmtomModal>
         );
     }

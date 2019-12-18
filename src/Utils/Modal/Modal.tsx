@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { LinearProgress } from '@material-ui/core';
 
 
 interface IProps {
@@ -13,6 +14,7 @@ interface IProps {
     onOk: () => void;
     onCancel: () => void;
     children: any;
+    loading: boolean
 }
 export default function CusmtomModal(props: IProps) {
   return (
@@ -28,13 +30,15 @@ export default function CusmtomModal(props: IProps) {
           {props.children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onCancel}  color="secondary">
+          <Button disabled={props.loading} onClick={props.onCancel}  color="secondary">
             Cancel
           </Button>
-          <Button onClick={props.onOk} variant="contained" color="primary">
+          <Button disabled={props.loading} onClick={props.onOk} variant="contained" color="primary">
             Confirm
           </Button>
         </DialogActions>
+        
+        {props.loading && <LinearProgress variant="query" />}
       </Dialog>
     </div>
   );

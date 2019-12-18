@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "../../store/state";
 import { INoteState, NotesType } from "../../actions/Note/model";
 import { NoteActions } from "../../actions/Note/action";
-import { IconButton, Button } from "@material-ui/core";
+import { IconButton, Button, LinearProgress } from "@material-ui/core";
 import { MoreVert, Delete } from '@material-ui/icons';
 import ConfirmMessage from "../../Utils/ConfrimMessege/ConfirmMessage";
 
@@ -48,6 +48,7 @@ const NoteCard = ({ note, ...props }: IProps) => {
             Delete
         </Button>
         </div>}
+        {props.deleteNote.loading && <LinearProgress variant="query" color="secondary" />}
       </div>
       <ConfirmMessage
         open={confirmBox}

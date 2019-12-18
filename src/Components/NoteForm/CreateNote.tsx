@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, makeStyles, TextField, Button } from '@material-ui/core';
+import { Paper, makeStyles, TextField, Button, LinearProgress } from '@material-ui/core';
 import { FormCreator, IFormProps } from '../../Utils/FormCreator';
 import { connect } from "react-redux";
 import { IApplicationState } from "../../store/state";
@@ -46,6 +46,7 @@ const CreateNote = (props: IProps) => {
     return (
         <div className={boxClassName}>
             <Paper className={classes.root}>
+            {props.createNote.loading && <LinearProgress variant="query" />}
                 <form className="createNoteForm" onSubmit={submitHandler}>
                     <h3 className="noteFormTitle">Add a new note</h3>
                     {getFormItem({
@@ -70,12 +71,17 @@ const CreateNote = (props: IProps) => {
                     )}
                     <div className="createNoteFooter">
                         <Button color="secondary"
+                        disabled={props.createNote.loading}
                             onClick={() => {
                                 props.resetForm();
                                 props.toggleCreateNoteModal(false)
                             }}
                         >Discard</Button>
-                        <Button type="submit" variant="contained" color="primary">Confrim</Button>
+                        <Button 
+                        disabled={props.createNote.loading}
+                        type="submit" 
+                        variant="contained" 
+                        color="primary">Confrim</Button>
                     </div>
                 </form>
 

@@ -8,6 +8,10 @@ import NoteCard from "../NoteCard/NoteCard";
 type IProps =  INoteState  &  typeof NoteActions;
 const NoteContainer = (props: IProps) => {
 
+    React.useEffect(() => {
+        props.setListPaginate(0, 2)
+    },[])
+    console.log(props.notesPaginated)
     return (
         <div className="noteList">
             {props.notesPaginated.list.map( (note: NotesType) => {

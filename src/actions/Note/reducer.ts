@@ -38,7 +38,10 @@ export const NoteReducer: Reducer<INoteState> = (
         case NoteActionTypes.PaginateNote: {
             let {page, total} = action
             if((page * total) >= state.notesList.data.length){
-                page--
+                if(page > 0)
+                {
+                    page--
+                }
             }
             const updatedList = [...state.notesList.data].splice((page * total), total)
             return {

@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { Button } from '@material-ui/core';
+import { AuthActions } from '../../actions/Auth/action';
+import { IApplicationState } from '../../store/state';
+import { connect } from 'react-redux';
 
-interface IProps {
-    registerHandler: () => void;
-}
+type IProps = typeof AuthActions;
 const GuestView = (props: IProps) => {
 
 
     return (
-        <div>
-            GuestView
-            <Button variant="contained" color="primary" onClick={props.registerHandler}> LOGIN / REGISTER </Button>
+        <div className="guestView">
+            <h3>Note Project</h3>
+            <p>A simple note app client that create notes with title and content</p>
+            <Button variant="contained" color="primary" onClick={()=>props.toggleLoginModal(true)}> LOGIN / REGISTER </Button>
         </div>
     )
 }
 
-export default GuestView
+export default connect(
+    (state: IApplicationState) => state.auth,
+    AuthActions,
+  )(GuestView);

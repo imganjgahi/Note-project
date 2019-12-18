@@ -12,6 +12,21 @@
         opacity: 1;
     }
 }
+
+.guestView {
+	width: 800px;
+	background: white;
+	height: 250px;
+	margin: 50px auto;
+	border: 1px solid #888;
+	padding: 20px;
+	box-sizing: border-box;
+	max-width: 100%;
+	text-align: center;
+	border-radius: 5px;
+	box-shadow: -2px 2px 4px #999;
+}
+
 .noteFormTitle {
 	background-color: #338663;
 	height: 35px;

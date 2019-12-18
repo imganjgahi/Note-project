@@ -17,7 +17,7 @@ type IProps = {
 
 export const MainContainer = (props: IProps) => {
     if (!props.auth.isAuth) {
-        return <GuestView registerHandler={() => console.log()} />
+        return <GuestView />
     }
     React.useEffect(() => {
         if (props.auth.isAuth) {
@@ -44,15 +44,14 @@ export const MainContainer = (props: IProps) => {
     return (
         <React.Fragment>
             <CreateNote isActive={props.note.createNote.open} />
-            <div className="addNote">
+            {!props.note.createNote.open && <div className="addNote">
                 <Fab
                     color="secondary"
                     aria-label="edit"
-                    onClick={() => props.toggleCreateNoteModal(true)}
-                >
+                    onClick={() => props.toggleCreateNoteModal(true)} >
                     <EditIcon />
                 </Fab>
-            </div>
+            </div>}
             <div className="notesContainer">
                 <NoteContainer {...props} />
             </div>

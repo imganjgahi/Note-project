@@ -7,12 +7,17 @@ export type CreateNoteType = {
     content: string;
 }
 export type NotesType = {
-    _id: string,
+    _id: string;
     title: string;
     content: string;
 }
 export interface INoteState {
 
+    notesPaginated: {
+        page: number,
+        total: number;
+        list: NotesType[]
+    }
     notesList : {
         loading: boolean;
         data: NotesType[]
@@ -20,10 +25,16 @@ export interface INoteState {
     createNote: {
         loading: boolean;
         open: boolean;
-    },
+    }
     deleteNote: {
         loading: boolean;
     }
+}
+//fetch
+interface IPaginateNote extends Action<string> {
+    type: NoteActionTypes.PaginateNote;
+    page: number,
+    total: number
 }
 //fetch
 interface IFetchNotes extends Action<string> {
@@ -68,6 +79,7 @@ interface IDeleteNoteFail extends Action<string> {
 
 
 export type ActionModel = ICreateNoteModal
+    | IPaginateNote
     | IFetchNotes
     | IFetchNotesSuccess
     | IFetchNotesFail

@@ -4,6 +4,12 @@ import { INoteState, ActionModel } from "./model";
 
 const unloadedState: INoteState = {
     
+
+    notesPaginated: {
+        page: 0,
+        total: 2,
+        list: []
+    },
     //fetch
     notesList: {
         loading: false,
@@ -29,6 +35,21 @@ export const NoteReducer: Reducer<INoteState> = (
     switch (action.type) {
 
         //fetch case
+        case NoteActionTypes.PaginateNote: {
+            const {page, total} = action
+            const updatedList = JSON.parse(JSON.stringify(state.notesList.data)).splice((page * total), total)
+            console.log("updatedList ", updatedList, "DAta: ",  state.notesList.data)
+            return {
+                ...state,
+                notesPaginated: {
+                    ...state.notesPaginated,
+                    page: action.page,
+                    total: action.total,
+                    list: updatedList
+                },
+            } as INoteState;
+        }
+        //fetch case
         case NoteActionTypes.FetchNotes: {
             return {
                 ...state,
@@ -39,12 +60,18 @@ export const NoteReducer: Reducer<INoteState> = (
             } as INoteState;
         }
         case NoteActionTypes.FetchNotesSuccess: {
+            const {page, total} = state.notesPaginated
+            const updatedList = action.data.slice((page * total), total)
             return {
                 ...state,
                 notesList: {
                     ...state.notesList,
                     loading: false,
                     data: action.data
+                },
+                notesPaginated: {
+                    ...state.notesPaginated,
+                    list: updatedList
                 },
             } as INoteState;
         }

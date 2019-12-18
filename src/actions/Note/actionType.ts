@@ -1,4 +1,6 @@
 export enum NoteActionTypes {
+    PaginateNote = "Note/PaginateNote",
+
     //Fetch Note
     FetchNotes = "Note/FetchNotes",
     FetchNotesSuccess = "Note/FetchNotesSuccess",

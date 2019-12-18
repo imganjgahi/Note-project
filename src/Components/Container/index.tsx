@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Fab } from "@material-ui/core";
+import { Fab, ButtonGroup, Button } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import CreateNote from "../NoteForm/CreateNote";
 import { connect } from "react-redux";
@@ -15,6 +15,7 @@ type IProps = {
 } & typeof NoteActions;
 
 export const MainContainer = (props: IProps) => {
+    const [listPage, setListPageNumber] = React.useState<number>(0)
     if (!props.auth.isAuth) {
         return null
     }
@@ -23,7 +24,18 @@ export const MainContainer = (props: IProps) => {
             props.fetchNoteList();
         }
     }, [])
-    console.log(props.note.notesList)
+    let page:number = 0;
+    const paginateBtn = () => props.note.notesList.data.map((_, i) => {
+        if(i % props.note.notesPaginated.total === 0) {
+            const pageNumber = page++
+            return <Button variant={pageNumber === listPage ? "contained" : "outlined"} key={i} onClick={() => {
+                setListPageNumber(pageNumber)
+                props.setListPaginate(pageNumber, 2)
+                console.log(pageNumber)
+            }}> {pageNumber} </Button>
+        }
+        return null 
+    })
     return (
         <React.Fragment>
             <CreateNote isActive={props.note.createNote.open} />
@@ -39,6 +51,21 @@ export const MainContainer = (props: IProps) => {
             <div className="notesContainer">
                 <h3 className="listHeader">Your Notes</h3>
                 <NoteContainer {...props} />
+            </div>
+            <div className="paginate">
+                <ButtonGroup color="primary" aria-label="outlined primary button group">
+                    {paginateBtn()}
+                    {/* {props.note.notesList.data.map((_, i) => {
+                        if(i > 0 && i % props.note.notesPaginated.total === 0) {
+                            const pageNumber = page++
+                            return <Button onClick={() => {
+                                console.log(Math.floor(i / props.note.notesPaginated.total))
+                                props.setListPaginate(pageNumber, 2)
+                            }}> {page} </Button>
+                        }
+                        return null 
+                    })} */}
+                </ButtonGroup>
             </div>
         </React.Fragment>
     )

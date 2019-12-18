@@ -4,6 +4,10 @@ import { ActionModel, CreateNoteType } from "./model";
 import { NoteApi } from "./api";
 
 export const NoteActions = {
+    setListPaginate: (page:number, total:number): AppAction<ActionModel> => (dispatch, getState) => {
+        dispatch({ type: NoteActionTypes.PaginateNote, page, total });
+
+    },
 
     //fetch note list actions
     fetchNoteList: (): AppAction<ActionModel> => async (dispatch, getState) => {

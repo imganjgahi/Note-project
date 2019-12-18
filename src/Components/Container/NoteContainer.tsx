@@ -10,7 +10,7 @@ const NoteContainer = (props: IProps) => {
 
     return (
         <div className="noteList">
-            {props.notesList.data.map( (note: NotesType) => {
+            {props.notesPaginated.list.map( (note: NotesType) => {
                 return(
                     <NoteCard {...props} key={note._id} note={note} />
                 )
